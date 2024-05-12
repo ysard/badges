@@ -17,7 +17,7 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
-const baseURL = "https://newbiecontest.org/"
+const baseURL = "https://www.newbiecontest.org/"
 
 func getProfileCrawling(id int) ProfileNewbiecontest {
 	profile := ProfileNewbiecontest{}
@@ -94,7 +94,10 @@ func getNewbiecontestCrawling(id int) (rank string, score string, level string, 
 		})
 
 		completeURL := baseURL + "index.php?page=info_membre&id=" + fmt.Sprint(id)
-		c.Visit(completeURL)
+		err := c.Visit(completeURL)
+		if err != nil {
+			log.Fatal("Something went wrong:", err)
+		}
 	}
 	return
 }
